@@ -19,7 +19,7 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
 // USA.
 
-#include <Stepper.h>
+#include "Stepper.h"
 #include "DataCode.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ void loop() {
   if (cur_started != started) {
     cur_started = started;
     if (cur_started) {
-      stepper->setSpeedPps(speed);
+      stepper->setSpeedPps(cur_speed);
       stepper->step(cur_steps);
     }
     DBG_SERIAL_INSTANCE.print("started: "); DBG_SERIAL_INSTANCE.println(cur_started);
