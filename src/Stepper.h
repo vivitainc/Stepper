@@ -90,31 +90,43 @@ class Stepper {
                                  int motor_pin_3, int motor_pin_4,
                                  int motor_pin_5);
 
-    // speed setter method:
-    void setSpeed(long whatSpeed);
+    // Sets the speed in revs per minute
+    void setSpeedRpm(const long rpm);
 
-    // mover method:
+    // Sets the speed in steps(pulses) per second
+    void setSpeedPps(const long pps);
+
+    // Set the motor steps_to_move steps. If the number is negative,
+    // the motor moves in the reverse direction.
     void step(int number_of_steps);
+
+    // Moves the motor with steps set by step().
+    // Return the left steps to be moved.
+    int move(void);
+
+    // Convert rpm to pps
+    long toPpsFrom(const long rpm);
 
     int version(void);
 
   private:
     void stepMotor(int this_step);
 
-    int direction;            // Direction of rotation
-    unsigned long step_delay; // delay between steps, in us, based on speed
-    int number_of_steps;      // total number of steps this motor can take
-    int pin_count;            // how many pins are in use.
-    int step_number;          // which step the motor is on
+    bool direction = false;       // Direction of rotation
+    unsigned long step_delay = 0; // delay between steps, in us, based on speed
+    int number_of_steps = 0;      // total number of steps this motor can take
+    int pin_count = 0;            // how many pins are in use.
+    int step_number = 0;          // which step the motor is on
+    int steps_left = 0;           // left steps to be moved
 
     // motor pin numbers:
-    int motor_pin_1;
-    int motor_pin_2;
-    int motor_pin_3;
-    int motor_pin_4;
-    int motor_pin_5;          // Only 5 phase motor
+    int motor_pin_1 = 0;
+    int motor_pin_2 = 0;
+    int motor_pin_3 = 0;
+    int motor_pin_4 = 0;
+    int motor_pin_5 = 0;          // Only 5 phase motor
 
-    unsigned long last_step_time; // timestamp in us of when the last step was taken
+    unsigned long last_step_time = 0; // timestamp in us of when the last step was taken
 };
 
 #endif
